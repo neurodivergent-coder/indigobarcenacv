@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alejandra Bárcena - Full Stack Developer Creativa</title>
+    <style>
+      body {
+        box-sizing: border-box;
+      }
+
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Courier+Prime:wght@400;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        font-family: "Courier Prime", monospace;
+        background: #0a0a0a;
+        color: #00ff41;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+      }
+
+      .terminal-container {
+        min-height: 100%;
+        background: linear-gradient(
+          135deg,
+          #0a0a0a 0%,
+          #1a0a1a 50%,
+          #0a1a0a 100%
+        );
+        position: relative;
+      }
+
+      .terminal-container::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 255, 65, 0.03) 2px,
+          rgba(0, 255, 65, 0.03) 4px
+        );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .terminal-header {
+        background: rgba(0, 0, 0, 0.95);
+        border-bottom: 2px solid #ff00ff;
+        padding: 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+      }
+
+      .terminal-title {
+        font-family: "Orbitron", monospace;
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: #00ffff;
+        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+        margin-bottom: 0.5rem;
+      }
+
+      .terminal-subtitle {
+        color: #ff00ff;
+        font-size: 1.2rem;
+        text-shadow: 0 0 5px #ff00ff;
+        margin-bottom: 0.5rem;
+      }
+
+      .contact-info {
+        color: #00ff41;
+        font-size: 1rem;
+        opacity: 0.8;
+      }
+
+      .nav-menu {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .nav-btn {
+        background: rgba(0, 255, 65, 0.1);
+        border: 1px solid #00ff41;
+        color: #00ff41;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        font-family: "Courier Prime", monospace;
+        font-size: 0.7rem;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-radius: 3px;
+      }
+
+      .nav-btn:hover,
+      .nav-btn.active {
+        background: rgba(0, 255, 65, 0.3);
+        box-shadow: 0 0 15px #00ff41;
+        text-shadow: 0 0 5px #00ff41;
+      }
+
+      .section {
+        display: none;
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .section.active {
+        display: block;
+        animation: fadeIn 0.5s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .terminal-window {
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid #00ff41;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+      }
+
+      .window-header {
+        background: linear-gradient(90deg, #ff00ff, #00ffff);
+        padding: 0.5rem 1rem;
+        font-family: "Orbitron", monospace;
+        font-weight: 700;
+        color: #000;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .window-controls {
+        display: flex;
+        gap: 0.3rem;
+      }
+
+      .control-btn {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+      }
+
+      .close {
+        background: #ff5f56;
+      }
+      .minimize {
+        background: #ffbd2e;
+      }
+      .maximize {
+        background: #27ca3f;
+      }
+
+      .window-content {
+        padding: 1.5rem;
+        line-height: 1.7;
+        font-size: 1.1rem;
+      }
+
+      .typing-text {
+        border-right: 2px solid #00ff41;
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          border-color: #00ff41;
+        }
+        51%,
+        100% {
+          border-color: transparent;
+        }
+      }
+
+      .highlight {
+        color: #00ffff;
+        font-weight: 700;
+        text-shadow: 0 0 5px #00ffff;
+      }
+
+      .purple-text {
+        color: #ff00ff;
+        font-weight: 700;
+      }
+
+      .skill-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+      }
+
+      .skill-card {
+        background: rgba(0, 255, 65, 0.1);
+        border: 1px solid #00ff41;
+        padding: 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .skill-card:hover {
+        background: rgba(0, 255, 65, 0.2);
+        box-shadow: 0 0 20px rgba(0, 255, 65, 0.4);
+        transform: translateY(-5px);
+      }
+
+      .skill-title {
+        color: #00ffff;
+        font-family: "Orbitron", monospace;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 5px #00ffff;
+      }
+
+      .skill-list {
+        list-style: none;
+      }
+
+      .skill-list li {
+        margin-bottom: 0.5rem;
+        position: relative;
+        padding-left: 1rem;
+      }
+
+      .skill-list li::before {
+        content: "▶";
+        position: absolute;
+        left: 0;
+        color: #ff00ff;
+      }
+
+      .neurodiversity-card {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 0, 255, 0.1),
+          rgba(0, 255, 255, 0.1)
+        );
+        border: 2px solid #ff00ff;
+        padding: 2rem;
+        border-radius: 12px;
+        margin: 2rem 0;
+        text-align: center;
+        box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+      }
+
+      .quote {
+        font-style: italic;
+        color: #00ffff;
+        font-size: 1.1rem;
+        margin: 1rem 0;
+        text-shadow: 0 0 5px #00ffff;
+      }
+
+      .experience-item {
+        background: rgba(0, 0, 0, 0.6);
+        border-left: 4px solid #ff00ff;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .experience-title {
+        color: #00ffff;
+        font-family: "Orbitron", monospace;
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .experience-period {
+        color: #ff00ff;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .checkmark {
+        color: #00ff41;
+        margin-right: 0.5rem;
+      }
+
+      .matrix-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.05;
+      }
+
+      @media (max-width: 768px) {
+        .terminal-header {
+          padding: 1rem 0.5rem;
+        }
+
+        .terminal-title {
+          font-size: 1.6rem;
+        }
+
+        .terminal-subtitle {
+          font-size: 1rem;
+        }
+
+        .contact-info {
+          font-size: 0.9rem;
+          line-height: 1.4;
+        }
+
+        .section {
+          padding: 1rem;
+        }
+
+        .window-content {
+          padding: 1rem;
+          font-size: 1rem;
+        }
+
+        .nav-menu {
+          gap: 0.3rem;
+        }
+
+        .nav-btn {
+          padding: 0.5rem 0.8rem;
+          font-size: 0.7rem;
+        }
+
+        .skill-grid {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        .skill-title {
+          font-size: 1.1rem;
+        }
+
+        .experience-title {
+          font-size: 1.2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .terminal-title {
+          font-size: 1.4rem;
+        }
+
+        .terminal-subtitle {
+          font-size: 0.9rem;
+        }
+
+        .contact-info {
+          font-size: 0.8rem;
+        }
+
+        .window-content {
+          padding: 0.8rem;
+          font-size: 0.95rem;
+        }
+
+        .nav-btn {
+          padding: 0.4rem 0.6rem;
+          font-size: 0.65rem;
+        }
+
+        .skill-title {
+          font-size: 1rem;
+        }
+
+        .experience-title {
+          font-size: 1.1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="matrix-bg" id="matrixBg"></div>
+
+    <div class="terminal-container">
+      <div class="content">
+        <header class="terminal-header">
+          <h1 class="terminal-title typing-text">ÍNDIGO_BÁRCENA.exe</h1>
+          <p class="terminal-subtitle">
+            Creative Full Stack & AI Developer, Estratega Creativa |
+            Comunicación Visual + Diseño Digital, IA Inclusiva
+          </p>
+          <p class="contact-info">
+            Ciudad de México · zukunftwellefanzine@gmail.com · +52 561 067 7516
+            · local 5592871855
+          </p>
+          <p class="contact-info">
+            GitHub:
+            <a
+              href="https://github.com/neurodivergent-coder"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: #00ffff; text-decoration: none"
+              >github.com/neurodivergent-coder</a
+            >
+          </p>
+
+          <nav class="nav-menu">
+            <button class="nav-btn active" onclick="showSection('carta')">
+              CARTA DE PRESENTACIÓN
+            </button>
+            <button class="nav-btn" onclick="showSection('perfil')">
+              PERFIL PROFESIONAL
+            </button>
+            <button class="nav-btn" onclick="showSection('competencias')">
+              COMPETENCIAS TÉCNICAS
+            </button>
+            <button class="nav-btn" onclick="showSection('habilidades')">
+              HABILIDADES CLAVE
+            </button>
+            <button class="nav-btn" onclick="showSection('diversidad')">
+              DIVERSIDAD COGNITIVA
+            </button>
+            <button class="nav-btn" onclick="showSection('educacion')">
+              EDUCACIÓN
+            </button>
+            <button class="nav-btn" onclick="showSection('idiomas')">
+              IDIOMAS
+            </button>
+            <button class="nav-btn" onclick="showSection('experiencia')">
+              EXPERIENCIA
+            </button>
+          </nav>
+        </header>
+
+        <main>
+          <!-- CARTA DE PRESENTACIÓN -->
+          <section id="carta" class="section active">
+            <div class="terminal-window">
+              <div class="window-header">
+                <div class="window-controls">
+                  <div class="control-btn close"></div>
+                  <div class="control-btn minimize"></div>
+                  <div class="control-btn maximize"></div>
+                </div>
+                <span>cover_letter.txt</span>
+              </div>
+              <div class="window-content">
+                <h2 class="purple-text">🟣 CARTA DE PRESENTACIÓN</h2>
+                <h3 class="highlight">
+                  Perfil Full Stack Creativa con IA y Diseño Inclusivo
+                </h3>
+                <br />
+                <p><strong>Estimados miembros de la organización,</strong></p>
+                <br />
+                <p>
+                  Soy desarrolladore full stack y creadore digital con una
+                  formación integral en Comunicación, Diseño y Fotografía. Mi
+                  enfoque abarca la programación web, el desarrollo de
+                  experiencias visuales interactivas, la creación de prototipos
+                  y el diseño de contenido multimedia. Mi objetivo es generar
+                  soluciones digitales que integren diseño, accesibilidad y
+                  usabilidad, proporcionando una experiencia enriquecedora y
+                  accesible para todos los usuarios.
+                </p>
+                <br />
+                <p>
+                  Me identifico como persona no binaria, racializada, con
+                  <span class="highlight"
+                    >déficit de atención, dislexia y discapacidad
+                    psicosocial</span
+                  >. Estas características han moldeado profundamente mi
+                  perspectiva sobre la inclusión y la interseccionalidad,
+                  impulsándome a trabajar en proyectos que promuevan la
+                  diversidad y la equidad. Mi experiencia personal me ha llevado
+                  a adoptar la inteligencia artificial como una herramienta que
+                  potencia mi capacidad de concentración, creatividad e
+                  innovación. Esta perspectiva única me permite desarrollar
+                  soluciones
+                  <span class="purple-text">out of the box</span> visuales,
+                  reconocer patrones rápidamente y generar experiencias de
+                  usuario inclusivas.
+                </p>
+                <br />
+                <p>
+                  Mi propósito es colaborar con organizaciones que valoren la
+                  <span class="purple-text"
+                    >inclusión, la accesibilidad digital</span
+                  >
+                  y el desarrollo de productos tecnológicos que impacten de
+                  manera positiva en la vida de las personas. Mi vocación de
+                  servicio me impulsa a contribuir en la creación de
+                  herramientas que no solo sean funcionales, sino también
+                  empáticas y adaptables a las diversas necesidades de los
+                  usuarios.
+                </p>
+                <br />
+                <p>
+                  Quedo a su disposición para conversar más sobre cómo puedo
+                  aportar valor a sus proyectos y contribuir a sus iniciativas.
+                </p>
+                <br />
+                <p><strong>Atentamente,</strong></p>
+                <p class="highlight">💜 Índigo Bárcena</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- PERFIL PROFESIONAL -->
+          <section id="perfil" class="section">
+            <div class="terminal-window">
+              <div class="window-header">
+                <div class="window-controls">
+                  <div class="control-btn close"></div>
+                  <div class="control-btn minimize"></div>
+                  <div class="control-btn maximize"></div>
+                </div>
+                <span>profile.json</span>
+              </div>
+              <div class="window-content">
+                <h2 class="purple-text">🟣 PERFIL PROFESIONAL</h2>
+                <br />
+                <p>
+                  Full Stack Developer con
+                  <span class="highlight">enfoque visual y creativo</span>.
+                  Especialista en el uso de Inteligencia Artificial para diseño,
+                  generación de imágenes, video, audio y prototipos digitales.
+                  Integro código y estética para construir experiencias
+                  accesibles, inclusivas y funcionales.
+                </p>
+                <br />
+                <p>
+                  Mi neurodivergencia (déficit de atención y dislexia) potencia
+                  mi
+                  <span class="purple-text"
+                    >pensamiento creativo, hiperfoco e innovación</span
+                  >. Utilizo IA para organizar ideas, acelerar procesos y
+                  transformar imaginarios en productos digitales.
+                </p>
+                <br />
+                <p>
+                  <span class="highlight">Vibe coding</span> es mi enfoque: la
+                  creación de código como una extensión de la creatividad, donde
+                  cada línea tiene un propósito estético y funcional. Este
+                  proceso me permite desarrollar soluciones estratégicas únicas
+                  que se adaptan a las necesidades del proyecto, ofreciendo un
+                  equilibrio entre arte y tecnología.
+                </p>
+                <br />
+                <div style="margin-left: 1rem">
+                  <p><span class="checkmark">✅</span> Tecnología con diseño</p>
+                  <p>
+                    <span class="checkmark">✅</span> Código como medio
+                    artístico y funcional
+                  </p>
+                  <p>
+                    <span class="checkmark">✅</span> IA como extensión de la
+                    mente creativa
+                  </p>
+                  <p>
+                    <span class="checkmark">✅</span> Creatividad e innovación
+                    en soluciones estratégicas
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- COMPETENCIAS TÉCNICAS -->
+          <section id="competencias" class="section">
+            <div class="terminal-window">
+              <div class="window-header">
+                <div class="window-controls">
+                  <div class="control-btn close"></div>
+                  <div class="control-btn minimize"></div>
+                  <div class="control-btn maximize"></div>
+                </div>
+                <span>technical_skills.exe</span>
+              </div>
+              <div class="window-content">
+                <h2>🛠 COMPETENCIAS TÉCNICAS</h2>
+                <div class="skill-grid">
+                  <div class="skill-card">
+                    <h3 class="skill-title">Desarrollo Web Full Stack</h3>
+                    <ul class="skill-list">
+                      <li>HTML · CSS · JavaScript · TypeScript</li>
+                      <li>React · Node.js · Python · Java · C++</li>
+                      <li>SQL · Supabase · APIs REST</li>
+                    </ul>
+                  </div>
+
+                  <div class="skill-card">
+                    <h3 class="skill-title">Diseño y Creatividad Digital</h3>
+                    <ul class="skill-list">
+                      <li>Adobe Suite · Figma · Canva Pro</li>
+                      <li>Leonardo IA · Suno · ElevenLabs</li>
+                      <li>RobotAI · Gamma · CapCut</li>
+                      <li>Claude · Gemini · Pinpoint</li>
+                    </ul>
+                  </div>
+
+                  <div class="skill-card">
+                    <h3 class="skill-title">IA y Automatización Creativa</h3>
+                    <ul class="skill-list">
+                      <li>Cursor · Codex · Windsurf</li>
+                      <li>JetBrains IA · GitHub Copilot</li>
+                      <li>Automatización en Replit / Bolt / Lovable</li>
+                      <li>Prototipado rápido</li>
+                    </ul>
+                  </div>
+
+                  <div class="skill-card">
+                    <h3 class="skill-title">Deployment & Herramientas</h3>
+                    <ul class="skill-list">
+                      <li>Git · GitHub Actions</li>
+                      <li>Vercel · Render · Replit</li>
+                      <li>Supabase · Docker</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- HABILIDADES CLAVE -->
+          <section id="habilidades" class="section">
+            <div class="terminal-window">
+              <div class="window-header">
+                <div class="window-controls">
+                  <div class="control-btn close"></div>
+                  <div class="control-btn minimize"></div>
+                  <div class="control-btn maximize"></div>
+                </div>
+                <span>key_skills.db</span>
+              </div>
+              <div class="window-content">
+                <h2>🎨 HABILIDADES CLAVE</h2>
+                <div class="skill-grid">
+                  <div class="skill-card">
+                    <h3 class="skill-title">
+                      🎯 Pensamiento visual y diseño de interfaces
+                    </h3>
+                  </div>
+                  <div class="skill-card">
+                    <h3 class="skill-title">📖 Storytelling digital</h3>
+                  </div>
+                  <div class="skill-card">
+                    <h3 class="skill-title">♿ Accesibilidad e inclusión</h3>
+                  </div>
+                  <div class="skill-card">
+                    <h3 class="skill-title">⚡ Prototipado rápido con IA</h3>
+                  </div>
+                  <div class="skill-card">
+                    <h3 class="skill-title">
+                      💡 Creatividad aplicada a innovación social
+                    </h3>
+                  </div>
+                  <div class="skill-card">
+                    <h3 class="skill-title">
+                      🎬 Generación de contenido multimedia asistido por IA
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- DIVERSIDAD COGNITIVA -->
+          <section id="diversidad" class="section">
+            <div class="terminal-window">
+              <div class="window-header">
+                <div class="window-controls">
+                  <div class="control-btn close"></div>
+                  <div class="control-btn minimize"></div>
+                  <div class="control-btn maximize"></div>
+                </div>
+                <span>neurodiversity.strength</span>
+              </div>
+              <div class="window-content">
+                <h2>🧠 DIVERSIDAD COGNITIVA (FORTALEZA CLAVE)</h2>
+                <div class="neurodiversity-card">
+                  <p>
+                    Vivo con
+                    <span class="highlight">déficit de atención y dislexia</span
+                    >, lo que me ha llevado a dominar herramientas de
+                    inteligencia artificial para organizar proyectos, procesar
+                    información visualmente y mantener foco.
+                  </p>
+                  <br />
+                  <p>
+                    💜 Mi forma distinta de percibir el mundo me permite generar
+                    ideas originales, anticipar tendencias y construir
+                    soluciones desde la empatía y la creatividad.
+                  </p>
+                  <br />
+                  <div class="quote">
+                    "No busco encajar en el sistema, busco crear sistemas donde
+                    más personas puedan encajar."
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- EDUCACIÓN -->
+          <section id="educacion" class="section">
+            <div class="terminal-window">
+              <div class="window-header">
+                <div class="window-controls">
+                  <div class="control-btn close"></div>
+                  <div class="control-btn minimize"></div>
+                  <div class="control-btn maximize"></div>
+                </div>
+                <span>education.log</span>
+              </div>
+              <div class="window-content">
+                <h2>🟦 EDUCACIÓN FORMAL</h2>
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    Maestría en Comunicación e Identidad Corporativa
+                  </h3>
+                  <p class="experience-period">UNIR | 2020–2021</p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    Licenciatura en Ciencias de la Comunicación
+                  </h3>
+                  <p class="experience-period">UVM | 2006–2009</p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">Ingeniería en Software</h3>
+                  <p class="experience-period">
+                    Universidad de la Ciudad de México | 2016 – Inconclusa
+                  </p>
+                </div>
+
+                <h2>🟦 FORMACIÓN TÉCNICA & MULTIMEDIA</h2>
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    Producción de Radio y Televisión
+                  </h3>
+                  <p class="experience-period">Centro Raúl del Campo Jr.</p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    Producción Fotográfica Profesional
+                  </h3>
+                  <p class="experience-period">
+                    Escuela Activa de Fotografía / Iberoamericana
+                  </p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    Certificaciones IA & Full Stack
+                  </h3>
+                  <p class="experience-period">
+                    DataCamp, IBM, Render Academy, 4Geeks Academy
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- IDIOMAS -->
+          <section id="idiomas" class="section">
+            <div class="terminal-window">
+              <div class="window-header">
+                <div class="window-controls">
+                  <div class="control-btn close"></div>
+                  <div class="control-btn minimize"></div>
+                  <div class="control-btn maximize"></div>
+                </div>
+                <span>languages.cfg</span>
+              </div>
+              <div class="window-content">
+                <h2>🌐 IDIOMAS</h2>
+                <div class="skill-grid">
+                  <div class="skill-card">
+                    <h3 class="skill-title">🇪🇸 Español</h3>
+                    <p>Nativo</p>
+                  </div>
+                  <div class="skill-card">
+                    <h3 class="skill-title">🇺🇸 Inglés</h3>
+                    <p>B1</p>
+                  </div>
+                  <div class="skill-card">
+                    <h3 class="skill-title">🇩🇪 Alemán</h3>
+                    <p>B1</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- EXPERIENCIA PROFESIONAL -->
+          <section id="experiencia" class="section">
+            <div class="terminal-window">
+              <div class="window-header">
+                <div class="window-controls">
+                  <div class="control-btn close"></div>
+                  <div class="control-btn minimize"></div>
+                  <div class="control-btn maximize"></div>
+                </div>
+                <span>experience.db</span>
+              </div>
+              <div class="window-content">
+                <h2>💼 EXPERIENCIA PROFESIONAL</h2>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    🔷 Omicron Transformación Digital
+                  </h3>
+                  <p class="experience-period">
+                    Project Manager / Desarrolladora | 2024 – Actualidad |
+                    Ciudad de México
+                  </p>
+                  <ul class="skill-list">
+                    <li>
+                      Coordinación de equipos multidisciplinarios para el diseño
+                      y entrega de plataformas web
+                    </li>
+                    <li>
+                      Supervisión técnica de herramientas educativas y de
+                      inclusión digital
+                    </li>
+                  </ul>
+                  <p>
+                    <span class="highlight">💡 Impacto:</span> Liderazgo en
+                    proyectos de transformación digital con enfoque inclusivo
+                  </p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    🔷 Cave Electromecánica S.A. de C.V.
+                  </h3>
+                  <p class="experience-period">
+                    Comunicación Digital, Identidad Visual y Transformación de
+                    Procesos | 2022 – 2024 | Ciudad de México
+                  </p>
+                  <ul class="skill-list">
+                    <li>
+                      Implementación de materiales digitales y diseño visual
+                      para licitaciones y clientes industriales
+                    </li>
+                    <li>
+                      Coordinación de comunicación institucional entre áreas
+                      técnicas, operativas y directivas
+                    </li>
+                    <li>
+                      Introducción de herramientas digitales e IA para optimizar
+                      procesos administrativos
+                    </li>
+                  </ul>
+                  <p>
+                    <span class="highlight">💡 Impacto:</span> Reducción de
+                    tiempos de entrega y estandarización de imagen corporativa
+                  </p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    🔷 BA Electromecánicos S.A. de C.V.
+                  </h3>
+                  <p class="experience-period">
+                    Sistemas Administrativos · Cultura Organizacional ·
+                    Comunicación Estratégica | 2015 – 2022 | Ciudad de México
+                  </p>
+                  <ul class="skill-list">
+                    <li>
+                      Gestión documental, reportes técnicos y presentación
+                      digital de proyectos de instalación electromecánica
+                    </li>
+                    <li>
+                      Diseño de identidad visual corporativa para clientes
+                      públicos y privados
+                    </li>
+                    <li>
+                      Apoyo en procesos de licitación, normatividad y
+                      comunicación interna
+                    </li>
+                  </ul>
+                  <p>
+                    <span class="highlight">💡 Impacto:</span> Fortalecimiento
+                    de la imagen institucional y mejora en la eficiencia de la
+                    comunicación con clientes
+                  </p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">🔷 Periódico Uno Más Uno</h3>
+                  <p class="experience-period">
+                    Fotoperiodista | 2011 – 2015 | Ciudad de México
+                  </p>
+                  <ul class="skill-list">
+                    <li>
+                      Cobertura fotográfica de eventos políticos, sociales y
+                      culturales
+                    </li>
+                    <li>Documentación visual de noticias y reportajes</li>
+                  </ul>
+                  <p>
+                    <span class="highlight">💡 Impacto:</span> Registro visual
+                    de acontecimientos relevantes para la sociedad
+                  </p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    🔷 Alcaldía Álvaro Obregón – Dirección de Desarrollo Social
+                  </h3>
+                  <p class="experience-period">
+                    Atención Ciudadana y Proyectos Comunitarios | 2018 – 2021 |
+                    Gobierno de CDMX
+                  </p>
+                  <ul class="skill-list">
+                    <li>
+                      Apoyo directo a grupos en situación de vulnerabilidad
+                    </li>
+                    <li>Difusión de campañas de participación ciudadana</li>
+                  </ul>
+                  <p>
+                    <span class="highlight">💡 Impacto:</span> Vinculación
+                    efectiva entre comunidad y programas sociales
+                  </p>
+                </div>
+
+                <h2 class="purple-text">
+                  🎨 PROYECTOS Y EMPRENDIMIENTOS CREATIVOS
+                </h2>
+                <p class="highlight">(Innovación + IA + Diseño)</p>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    🔹 Fundadora de Zukunft Welle Fanzine & Delulu Future Dev
+                  </h3>
+                  <p class="experience-period">2023 – Actualidad</p>
+                  <p>
+                    Plataforma digital full stack con IA para cultura, diseño,
+                    tecnología y neurodiversidad
+                  </p>
+                  <ul class="skill-list">
+                    <li>Desarrollo web con React + Supabase</li>
+                    <li>Identidad de marca y generación de contenido visual</li>
+                    <li>Diseño de interfaces accesibles y multilingües</li>
+                  </ul>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    🔹 Wu Wei Neurospicy - Marca de Kimonos Artesanales
+                  </h3>
+                  <p class="experience-period">
+                    2023 – Actualidad | @wuwei_neurospicymx
+                  </p>
+                  <p>Kimonos artesanales inspirados en la neurodiversidad</p>
+                  <ul class="skill-list">
+                    <li>Diseño textil con enfoque inclusivo</li>
+                    <li>Producción artesanal y sostenible</li>
+                  </ul>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">🔹 Delulu Future Dev</h3>
+                  <p>"El laboratorio donde las ideas toman forma."</p>
+                  <p>
+                    Estudio creativo de diseño, branding, UX/UI, forecasting
+                  </p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">🔹 Wu Wei Wear</h3>
+                  <p>Moda cósmica, "go with the flow"</p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">🔹 Anatta Shop</h3>
+                  <p>
+                    Arte, juguetes de diseño, merch, impermanencia + DIY punk
+                  </p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">🔹 DJ Clancy Pink Punk</h3>
+                  <p class="experience-period">YouTube: @DjClancyPinkPunk</p>
+                  <p>Música, performance</p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    🔹 Fanzine Ghetto – Moda Streetwear, Arte y Performance
+                  </h3>
+                  <ul class="skill-list">
+                    <li>
+                      Creación de marca, diseño de ropa conceptual e identidad
+                      gráfica
+                    </li>
+                    <li>
+                      Exposición en Abierto Mexicano de Diseño y performance en
+                      la XXXVIII Marcha del Orgullo (Zócalo CDMX)
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    🔹 Mettabhavana CDMX & Caja de Luz
+                  </h3>
+                  <p>E-commerce de bienestar y fotografía</p>
+                  <ul class="skill-list">
+                    <li>Diseño de productos digitales</li>
+                    <li>
+                      Gestión de tienda en línea con marketing digital visual
+                    </li>
+                  </ul>
+                </div>
+
+                <h2 class="purple-text">
+                  🌍 COLABORACIONES INTERNACIONALES Y ACTIVISMO
+                </h2>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    🔹 Performance Internacional Goethe-Institut / FIDSmx
+                  </h3>
+                  <p class="experience-period">
+                    Ménage à Trois: Alemania – Francia – México
+                  </p>
+                  <p>
+                    Evento por la diversidad, inclusión y libertad sexual.
+                    Participación como artista visual y performer
+                  </p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">🔹 House of Apocalipstick</h3>
+                  <p>
+                    Dirección creativa · Activismo LGBTQ+ · Diseño visual y
+                    multimedia
+                  </p>
+                  <p>
+                    <span class="highlight">Colaboraciones:</span> Lululemon,
+                    Philip Morris Global, Museo del Chopo y Abierto Mexicano de
+                    Diseño
+                  </p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">🔹 Girl Tech Fest MX</h3>
+                  <p>
+                    Tutora en talleres de programación y robótica para niñas y
+                    adolescentes
+                  </p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    🔹 Students for Liberty · Red Mundial de Jóvenes Políticos ·
+                    Ethos Think Tank · Club de la Libertad
+                  </h3>
+                  <p>
+                    Comunicación estratégica, diseño de campañas digitales,
+                    participación internacional en foros de innovación y
+                    derechos humanos
+                  </p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    🔹 Parlamento de Mujeres CDMX
+                  </h3>
+                  <p class="experience-period">2019, 2021, 2022 y 2023</p>
+                  <p>
+                    Participación en iniciativas de política pública con
+                    perspectiva de género
+                  </p>
+                </div>
+
+                <div class="experience-item">
+                  <h3 class="experience-title">
+                    🔹 Lesbians Who Tech & Allies
+                  </h3>
+                  <p>Fotografía en eventos de diversidad tecnológica</p>
+                </div>
+
+                <h2 class="purple-text">🌟 HOBBIES E INTERESES</h2>
+                <div class="experience-item">
+                  <p>
+                    <span class="highlight">Actividades físicas:</span> Nadar,
+                    andar en bicicleta, practicar yoga
+                  </p>
+                  <p>
+                    <span class="highlight">Creatividad:</span> Arte, diseño,
+                    arte digital
+                  </p>
+                  <p>
+                    <span class="highlight">Desarrollo personal:</span> Lectura,
+                    viajar, activismo
+                  </p>
+                </div>
+
+                <h2 class="purple-text">
+                  ⭐ PRÁCTICAS PROFESIONALES Y SERVICIO SOCIAL
+                </h2>
+                <div class="skill-grid">
+                  <div class="skill-card">
+                    <h3 class="skill-title">🔹 Secretaría de Cultura CDMX</h3>
+                    <p>Comunicación social</p>
+                  </div>
+                  <div class="skill-card">
+                    <h3 class="skill-title">
+                      🔹 Radio Educación / Telmex Internacional / Radio UVM
+                    </h3>
+                    <p>Producción radiofónica, guionismo y postproducción</p>
+                  </div>
+                  <div class="skill-card">
+                    <h3 class="skill-title">🔹 Metamorfosis Global A.C.</h3>
+                    <p>Tallerista para personas con discapacidad</p>
+                  </div>
+                  <div class="skill-card">
+                    <h3 class="skill-title">
+                      🔹 Centro de Educación y Desarrollo Humano (CEDH)
+                    </h3>
+                    <p>Programas de inclusión</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      // Matrix background effect
+      function createMatrixEffect() {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        document.getElementById("matrixBg").appendChild(canvas);
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars =
+          "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
+        const charArray = chars.split("");
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let i = 0; i < columns; i++) {
+          drops[i] = 1;
+        }
+
+        function draw() {
+          ctx.fillStyle = "rgba(10, 10, 10, 0.04)";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          ctx.fillStyle = "#00ff41";
+          ctx.font = fontSize + "px monospace";
+
+          for (let i = 0; i < drops.length; i++) {
+            const text =
+              charArray[Math.floor(Math.random() * charArray.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+              drops[i] = 0;
+            }
+            drops[i]++;
+          }
+        }
+
+        setInterval(draw, 35);
+
+        window.addEventListener("resize", () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        });
+      }
+
+      // Navigation
+      function showSection(sectionId) {
+        // Remove active class from all sections and buttons
+        document.querySelectorAll(".section").forEach((section) => {
+          section.classList.remove("active");
+        });
+        document.querySelectorAll(".nav-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+
+        // Add active class to selected section and button
+        document.getElementById(sectionId).classList.add("active");
+        event.target.classList.add("active");
+      }
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", () => {
+        createMatrixEffect();
+      });
+    </script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'992de0f5c7e0d29c',t:'MTc2MTE4NzMyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>
