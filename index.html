@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alejandra Bárcena - Full Stack Developer Creativa</title>
+    <title>Índigo Bárcena - Full Stack Developer Creative</title>
     <style>
       body {
         box-sizing: border-box;
@@ -119,6 +119,18 @@
         background: rgba(0, 255, 65, 0.3);
         box-shadow: 0 0 15px #00ff41;
         text-shadow: 0 0 5px #00ff41;
+      }
+
+      .download-btn {
+        background: rgba(255, 0, 255, 0.1) !important;
+        border-color: #ff00ff !important;
+        color: #ff00ff !important;
+      }
+
+      .download-btn:hover {
+        background: rgba(255, 0, 255, 0.3) !important;
+        box-shadow: 0 0 15px #ff00ff !important;
+        text-shadow: 0 0 5px #ff00ff !important;
       }
 
       .section {
@@ -407,16 +419,23 @@
         }
       }
     </style>
+    <style>
+      @view-transition {
+        navigation: auto;
+      }
+    </style>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+    <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+    <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
   </head>
   <body>
     <div class="matrix-bg" id="matrixBg"></div>
-
     <div class="terminal-container">
       <div class="content">
         <header class="terminal-header">
           <h1 class="terminal-title typing-text">ÍNDIGO_BÁRCENA.exe</h1>
           <p class="terminal-subtitle">
-            Creative Full Stack & AI Developer, Estratega Creativa |
+            Creative Full Stack &amp; AI Developer, Estrategx Creativx |
             Comunicación Visual + Diseño Digital, IA Inclusiva
           </p>
           <p class="contact-info">
@@ -433,7 +452,6 @@
               >github.com/neurodivergent-coder</a
             >
           </p>
-
           <nav class="nav-menu">
             <button class="nav-btn active" onclick="showSection('carta')">
               CARTA DE PRESENTACIÓN
@@ -459,9 +477,11 @@
             <button class="nav-btn" onclick="showSection('experiencia')">
               EXPERIENCIA
             </button>
+            <button class="nav-btn download-btn" onclick="downloadPDF()">
+              📄 DESCARGAR PDF
+            </button>
           </nav>
         </header>
-
         <main>
           <!-- CARTA DE PRESENTACIÓN -->
           <section id="carta" class="section active">
@@ -477,13 +497,13 @@
               <div class="window-content">
                 <h2 class="purple-text">🟣 CARTA DE PRESENTACIÓN</h2>
                 <h3 class="highlight">
-                  Perfil Full Stack Creativa con IA y Diseño Inclusivo
+                  Perfil Full Stack Creativx con IA y Diseño Inclusivo
                 </h3>
                 <br />
                 <p><strong>Estimados miembros de la organización,</strong></p>
                 <br />
                 <p>
-                  Soy desarrolladore full stack y creadore digital con una
+                  Soy desarrolladorx full stack y creadorx digital con una
                   formación integral en Comunicación, Diseño y Fotografía. Mi
                   enfoque abarca la programación web, el desarrollo de
                   experiencias visuales interactivas, la creación de prototipos
@@ -494,7 +514,7 @@
                 </p>
                 <br />
                 <p>
-                  Me identifico como persona no binaria, racializada, con
+                  Me identifico como persona no binaria, con
                   <span class="highlight"
                     >déficit de atención, dislexia y discapacidad
                     psicosocial</span
@@ -534,7 +554,6 @@
               </div>
             </div>
           </section>
-
           <!-- PERFIL PROFESIONAL -->
           <section id="perfil" class="section">
             <div class="terminal-window">
@@ -594,7 +613,6 @@
               </div>
             </div>
           </section>
-
           <!-- COMPETENCIAS TÉCNICAS -->
           <section id="competencias" class="section">
             <div class="terminal-window">
@@ -617,7 +635,6 @@
                       <li>SQL · Supabase · APIs REST</li>
                     </ul>
                   </div>
-
                   <div class="skill-card">
                     <h3 class="skill-title">Diseño y Creatividad Digital</h3>
                     <ul class="skill-list">
@@ -627,7 +644,6 @@
                       <li>Claude · Gemini · Pinpoint</li>
                     </ul>
                   </div>
-
                   <div class="skill-card">
                     <h3 class="skill-title">IA y Automatización Creativa</h3>
                     <ul class="skill-list">
@@ -637,9 +653,8 @@
                       <li>Prototipado rápido</li>
                     </ul>
                   </div>
-
                   <div class="skill-card">
-                    <h3 class="skill-title">Deployment & Herramientas</h3>
+                    <h3 class="skill-title">Deployment &amp; Herramientas</h3>
                     <ul class="skill-list">
                       <li>Git · GitHub Actions</li>
                       <li>Vercel · Render · Replit</li>
@@ -650,7 +665,6 @@
               </div>
             </div>
           </section>
-
           <!-- HABILIDADES CLAVE -->
           <section id="habilidades" class="section">
             <div class="terminal-window">
@@ -693,7 +707,6 @@
               </div>
             </div>
           </section>
-
           <!-- DIVERSIDAD COGNITIVA -->
           <section id="diversidad" class="section">
             <div class="terminal-window">
@@ -730,7 +743,6 @@
               </div>
             </div>
           </section>
-
           <!-- EDUCACIÓN -->
           <section id="educacion" class="section">
             <div class="terminal-window">
@@ -750,29 +762,25 @@
                   </h3>
                   <p class="experience-period">UNIR | 2020–2021</p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">
                     Licenciatura en Ciencias de la Comunicación
                   </h3>
                   <p class="experience-period">UVM | 2006–2009</p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">Ingeniería en Software</h3>
                   <p class="experience-period">
                     Universidad de la Ciudad de México | 2016 – Inconclusa
                   </p>
                 </div>
-
-                <h2>🟦 FORMACIÓN TÉCNICA & MULTIMEDIA</h2>
+                <h2>🟦 FORMACIÓN TÉCNICA &amp; MULTIMEDIA</h2>
                 <div class="experience-item">
                   <h3 class="experience-title">
                     Producción de Radio y Televisión
                   </h3>
                   <p class="experience-period">Centro Raúl del Campo Jr.</p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">
                     Producción Fotográfica Profesional
@@ -781,10 +789,9 @@
                     Escuela Activa de Fotografía / Iberoamericana
                   </p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">
-                    Certificaciones IA & Full Stack
+                    Certificaciones IA &amp; Full Stack
                   </h3>
                   <p class="experience-period">
                     DataCamp, IBM, Render Academy, 4Geeks Academy
@@ -793,7 +800,6 @@
               </div>
             </div>
           </section>
-
           <!-- IDIOMAS -->
           <section id="idiomas" class="section">
             <div class="terminal-window">
@@ -824,7 +830,6 @@
               </div>
             </div>
           </section>
-
           <!-- EXPERIENCIA PROFESIONAL -->
           <section id="experiencia" class="section">
             <div class="terminal-window">
@@ -838,7 +843,6 @@
               </div>
               <div class="window-content">
                 <h2>💼 EXPERIENCIA PROFESIONAL</h2>
-
                 <div class="experience-item">
                   <h3 class="experience-title">
                     🔷 Omicron Transformación Digital
@@ -862,7 +866,6 @@
                     proyectos de transformación digital con enfoque inclusivo
                   </p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">
                     🔷 Cave Electromecánica S.A. de C.V.
@@ -890,7 +893,6 @@
                     tiempos de entrega y estandarización de imagen corporativa
                   </p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">
                     🔷 BA Electromecánicos S.A. de C.V.
@@ -919,7 +921,6 @@
                     comunicación con clientes
                   </p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">🔷 Periódico Uno Más Uno</h3>
                   <p class="experience-period">
@@ -937,7 +938,6 @@
                     de acontecimientos relevantes para la sociedad
                   </p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">
                     🔷 Alcaldía Álvaro Obregón – Dirección de Desarrollo Social
@@ -957,15 +957,14 @@
                     efectiva entre comunidad y programas sociales
                   </p>
                 </div>
-
                 <h2 class="purple-text">
                   🎨 PROYECTOS Y EMPRENDIMIENTOS CREATIVOS
                 </h2>
                 <p class="highlight">(Innovación + IA + Diseño)</p>
-
                 <div class="experience-item">
                   <h3 class="experience-title">
-                    🔹 Fundadora de Zukunft Welle Fanzine & Delulu Future Dev
+                    🔹 Fundadora de Zukunft Welle Fanzine &amp; Delulu Future
+                    Dev
                   </h3>
                   <p class="experience-period">2023 – Actualidad</p>
                   <p>
@@ -978,7 +977,6 @@
                     <li>Diseño de interfaces accesibles y multilingües</li>
                   </ul>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">
                     🔹 Wu Wei Neurospicy - Marca de Kimonos Artesanales
@@ -992,7 +990,6 @@
                     <li>Producción artesanal y sostenible</li>
                   </ul>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">🔹 Delulu Future Dev</h3>
                   <p>"El laboratorio donde las ideas toman forma."</p>
@@ -1000,25 +997,21 @@
                     Estudio creativo de diseño, branding, UX/UI, forecasting
                   </p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">🔹 Wu Wei Wear</h3>
                   <p>Moda cósmica, "go with the flow"</p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">🔹 Anatta Shop</h3>
                   <p>
                     Arte, juguetes de diseño, merch, impermanencia + DIY punk
                   </p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">🔹 DJ Clancy Pink Punk</h3>
                   <p class="experience-period">YouTube: @DjClancyPinkPunk</p>
                   <p>Música, performance</p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">
                     🔹 Fanzine Ghetto – Moda Streetwear, Arte y Performance
@@ -1034,10 +1027,9 @@
                     </li>
                   </ul>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">
-                    🔹 Mettabhavana CDMX & Caja de Luz
+                    🔹 Mettabhavana CDMX &amp; Caja de Luz
                   </h3>
                   <p>E-commerce de bienestar y fotografía</p>
                   <ul class="skill-list">
@@ -1047,11 +1039,9 @@
                     </li>
                   </ul>
                 </div>
-
                 <h2 class="purple-text">
                   🌍 COLABORACIONES INTERNACIONALES Y ACTIVISMO
                 </h2>
-
                 <div class="experience-item">
                   <h3 class="experience-title">
                     🔹 Performance Internacional Goethe-Institut / FIDSmx
@@ -1064,7 +1054,6 @@
                     Participación como artista visual y performer
                   </p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">🔹 House of Apocalipstick</h3>
                   <p>
@@ -1077,7 +1066,6 @@
                     Diseño
                   </p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">🔹 Girl Tech Fest MX</h3>
                   <p>
@@ -1085,7 +1073,6 @@
                     adolescentes
                   </p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">
                     🔹 Students for Liberty · Red Mundial de Jóvenes Políticos ·
@@ -1097,7 +1084,6 @@
                     derechos humanos
                   </p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">
                     🔹 Parlamento de Mujeres CDMX
@@ -1108,14 +1094,12 @@
                     perspectiva de género
                   </p>
                 </div>
-
                 <div class="experience-item">
                   <h3 class="experience-title">
-                    🔹 Lesbians Who Tech & Allies
+                    🔹 Lesbians Who Tech &amp; Allies
                   </h3>
                   <p>Fotografía en eventos de diversidad tecnológica</p>
                 </div>
-
                 <h2 class="purple-text">🌟 HOBBIES E INTERESES</h2>
                 <div class="experience-item">
                   <p>
@@ -1131,7 +1115,6 @@
                     viajar, activismo
                   </p>
                 </div>
-
                 <h2 class="purple-text">
                   ⭐ PRÁCTICAS PROFESIONALES Y SERVICIO SOCIAL
                 </h2>
@@ -1163,8 +1146,177 @@
         </main>
       </div>
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
+      // PDF Download functionality
+      function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // Configuración del documento
+        doc.setFont("helvetica");
+        let yPosition = 20;
+        const pageHeight = doc.internal.pageSize.height;
+        const margin = 20;
+        const lineHeight = 7;
+
+        // Función para añadir nueva página si es necesario
+        function checkPageBreak(neededSpace = 20) {
+          if (yPosition + neededSpace > pageHeight - margin) {
+            doc.addPage();
+            yPosition = 20;
+          }
+        }
+
+        // Función para añadir texto con salto de línea automático
+        function addText(
+          text,
+          fontSize = 10,
+          isBold = false,
+          color = [0, 0, 0]
+        ) {
+          doc.setFontSize(fontSize);
+          doc.setFont("helvetica", isBold ? "bold" : "normal");
+          doc.setTextColor(color[0], color[1], color[2]);
+
+          const splitText = doc.splitTextToSize(text, 170);
+          checkPageBreak(splitText.length * lineHeight);
+
+          doc.text(splitText, margin, yPosition);
+          yPosition += splitText.length * lineHeight + 3;
+        }
+
+        // Título principal
+        addText("ÍNDIGO BÁRCENA", 20, true, [255, 0, 255]);
+        addText("Creative Full Stack & AI Developer", 14, true, [0, 255, 255]);
+        addText(
+          "Estrategx Creativx | Comunicación Visual + Diseño Digital, IA Inclusiva",
+          12,
+          false,
+          [0, 0, 0]
+        );
+        yPosition += 5;
+
+        // Información de contacto
+        addText("INFORMACIÓN DE CONTACTO", 12, true, [255, 0, 255]);
+        addText("Ciudad de México", 10);
+        addText("Email: zukunftwellefanzine@gmail.com", 10);
+        addText("Teléfono: +52 561 067 7516 · local 5592871855", 10);
+        addText("GitHub: github.com/neurodivergent-coder", 10);
+        yPosition += 10;
+
+        // Perfil Profesional
+        addText("PERFIL PROFESIONAL", 14, true, [255, 0, 255]);
+        addText(
+          "Full Stack Developer con enfoque visual y creativo. Especialista en el uso de Inteligencia Artificial para diseño, generación de imágenes, video, audio y prototipos digitales. Integro código y estética para construir experiencias accesibles, inclusivas y funcionales.",
+          10
+        );
+        addText(
+          "Mi neurodivergencia (déficit de atención y dislexia) potencia mi pensamiento creativo, hiperfoco e innovación. Utilizo IA para organizar ideas, acelerar procesos y transformar imaginarios en productos digitales.",
+          10
+        );
+        yPosition += 5;
+
+        // Competencias Técnicas
+        addText("COMPETENCIAS TÉCNICAS", 14, true, [255, 0, 255]);
+        addText("Desarrollo Web Full Stack:", 11, true);
+        addText(
+          "• HTML, CSS, JavaScript, TypeScript\n• React, Node.js, Python, Java, C++\n• SQL, Supabase, APIs REST",
+          10
+        );
+
+        addText("Diseño y Creatividad Digital:", 11, true);
+        addText(
+          "• Adobe Suite, Figma, Canva Pro\n• Leonardo IA, Suno, ElevenLabs\n• RobotAI, Gamma, CapCut",
+          10
+        );
+
+        addText("IA y Automatización Creativa:", 11, true);
+        addText(
+          "• Cursor, Codex, Windsurf\n• JetBrains IA, GitHub Copilot\n• Automatización en Replit/Bolt/Lovable",
+          10
+        );
+        yPosition += 5;
+
+        // Diversidad Cognitiva
+        addText(
+          "DIVERSIDAD COGNITIVA (FORTALEZA CLAVE)",
+          14,
+          true,
+          [255, 0, 255]
+        );
+        addText(
+          "Vivo con déficit de atención y dislexia, lo que me ha llevado a dominar herramientas de inteligencia artificial para organizar proyectos, procesar información visualmente y mantener foco.",
+          10
+        );
+        addText(
+          "Mi forma distinta de percibir el mundo me permite generar ideas originales, anticipar tendencias y construir soluciones desde la empatía y la creatividad.",
+          10
+        );
+        yPosition += 5;
+
+        // Educación
+        addText("EDUCACIÓN", 14, true, [255, 0, 255]);
+        addText(
+          "Maestría en Comunicación e Identidad Corporativa - UNIR (2020-2021)",
+          11,
+          true
+        );
+        addText(
+          "Licenciatura en Ciencias de la Comunicación - UVM (2006-2009)",
+          11,
+          true
+        );
+        addText(
+          "Ingeniería en Software - Universidad de la Ciudad de México (2016 - Inconclusa)",
+          11,
+          true
+        );
+        addText(
+          "Certificaciones IA & Full Stack - DataCamp, IBM, Render Academy, 4Geeks Academy",
+          10
+        );
+        yPosition += 5;
+
+        // Idiomas
+        addText("IDIOMAS", 14, true, [255, 0, 255]);
+        addText("• Español: Nativo\n• Inglés: B1\n• Alemán: B1", 10);
+        yPosition += 5;
+
+        // Experiencia destacada
+        addText("EXPERIENCIA PROFESIONAL DESTACADA", 14, true, [255, 0, 255]);
+
+        addText("Omicron Transformación Digital (2024 - Actualidad)", 12, true);
+        addText("Project Manager / Desarrolladora - Ciudad de México", 10);
+        addText(
+          "• Coordinación de equipos multidisciplinarios para plataformas web\n• Supervisión técnica de herramientas educativas y de inclusión digital",
+          10
+        );
+
+        addText("Cave Electromecánica S.A. de C.V. (2022 - 2024)", 12, true);
+        addText(
+          "Comunicación Digital, Identidad Visual y Transformación de Procesos",
+          10
+        );
+        addText(
+          "• Implementación de materiales digitales para licitaciones\n• Introducción de herramientas digitales e IA para optimizar procesos",
+          10
+        );
+
+        addText(
+          "Fundadora de Zukunft Welle Fanzine & Delulu Future Dev (2023 - Actualidad)",
+          12,
+          true
+        );
+        addText(
+          "• Plataforma digital full stack con IA para cultura y neurodiversidad\n• Desarrollo web con React + Supabase\n• Diseño de interfaces accesibles y multilingües",
+          10
+        );
+
+        // Guardar el PDF
+        doc.save("Indigo_Barcena_CV.pdf");
+      }
+
       // Matrix background effect
       function createMatrixEffect() {
         const canvas = document.createElement("canvas");
@@ -1239,7 +1391,7 @@
           if (b) {
             var d = b.createElement("script");
             d.innerHTML =
-              "window.__CF$cv$params={r:'992de0f5c7e0d29c',t:'MTc2MTE4NzMyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+              "window.__CF$cv$params={r:'9970aa0d11add364',t:'MTc2MTg4NzYxOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
             b.getElementsByTagName("head")[0].appendChild(d);
           }
         }
